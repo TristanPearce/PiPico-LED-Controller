@@ -35,7 +35,7 @@ pico_enable_stdio_uart(couch_leds 1)
 pico_enable_stdio_usb(couch_leds 1)
 
 # generate the header file into the source tree as it is included in the RP2040 datasheet
-pico_generate_pio_header(couch_leds ${CMAKE_CURRENT_LIST_DIR}/src/protocols/ws2812.pio OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/protocols/generated)
+pico_generate_pio_header(couch_leds ${CMAKE_CURRENT_LIST_DIR}/src/protocols/ws2812.pio OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/src/protocols/generated)
 
 # Add the standard library to the build
 target_link_libraries(couch_leds
