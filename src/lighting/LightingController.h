@@ -3,6 +3,6 @@
 class LightingController {
 
 public:
-    void Enable();
-    void Disable();
+    virtual void Enable() = 0;
+    virtual void Disable() = 0;
 };

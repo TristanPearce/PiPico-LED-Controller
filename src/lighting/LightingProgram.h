@@ -1,21 +1,21 @@
 #pragma once
 
-class LightingProgramOnCreateArgs
+struct LightingProgramOnCreateArgs
 {
 
 };
 
-class LightingProgramOnDestroyArgs
+struct LightingProgramOnDestroyArgs
 {
 
 };
 
-class LightingProgramOnRunStartArgs
+struct LightingProgramOnRunStartArgs
 {
 
 };
 
-class LightingProgramOnRunEndArgs
+struct LightingProgramOnRunEndArgs
 {
 
 };
