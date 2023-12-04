@@ -30,7 +30,7 @@ public:
     }
 
     void setB(uint8_t b) {
-        colour_grbw = (colour_grbw & 0xFFFFFF00) | static_cast<uint32_t>(b) << BLUE_OFFSET;
+        colour_grbw = (colour_grbw & 0xFFFFFF00) | (static_cast<uint32_t>(b) << BLUE_OFFSET);
     }
 
     void setW(uint8_t w) {
@@ -64,6 +64,42 @@ public:
 
     explicit operator uint32_t() const {
         return colour_grbw;
+    }
+
+    // FLOATING POINT HELPERS
+
+
+    void setRFloat(float r) {
+        colour_grbw = (colour_grbw & 0xFFFF00FF) | (static_cast<uint32_t>(r) << RED_OFFSET);
+    }
+
+    void setGFloat(float g) {
+        colour_grbw = (colour_grbw & 0xFF00FFFF) | (static_cast<uint32_t>(g) << GREEN_OFFSET);
+    }
+
+    void setBFloat(float b) {
+        colour_grbw = (colour_grbw & 0xFFFFFF00) | (static_cast<uint32_t>(b) << BLUE_OFFSET);
+    }
+
+    void setWFloat(float w) {
+        colour_grbw = (colour_grbw & 0x00FFFFFF) | (static_cast<uint32_t>(w) << WHITE_OFFSET);
+    }
+
+    // Getters
+    float getRFloat() const {
+        return (static_cast<uint8_t>((colour_grbw >> RED_OFFSET) & 0xFF) / 255.0f);
+    }
+
+    float getGFloat() const {
+        return (static_cast<uint8_t>((colour_grbw >> GREEN_OFFSET) & 0xFF) / 255.0f);
+    }
+
+    float getBFloat() const {
+        return (static_cast<uint8_t>(colour_grbw >> BLUE_OFFSET& 0xFF) / 255.0f);
+    }
+
+    float getWFloat() const {
+        return (static_cast<uint8_t>((colour_grbw >> WHITE_OFFSET) & 0xFF) / 255.0f);
     }
 
 private:
