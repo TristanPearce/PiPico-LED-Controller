@@ -10,7 +10,7 @@
 #include "pico/stdlib.h"
 #include "pico/binary_info.h"
 
-#include "protocols/ws2812.hpp"
+#include "protocols/ws2812.h"
 
 
 #include "lighting/LightingProgram.h"

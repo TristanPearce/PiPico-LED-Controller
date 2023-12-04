@@ -34,7 +34,7 @@ pico_set_program_version(couch_leds "0.1")
 pico_enable_stdio_uart(couch_leds 1)
 pico_enable_stdio_usb(couch_leds 1)
 
-# generate the header file into the source tree as it is included in the RP2040 datasheet
+# generate the header file into the source tree as it is included in the RP2040 datasheet - WS2812 LED Protocol
 pico_generate_pio_header(couch_leds ${CMAKE_CURRENT_LIST_DIR}/src/protocols/ws2812.pio OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/src/protocols/generated)
 
 # Add the standard library to the build
