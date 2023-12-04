@@ -10,15 +10,15 @@
 #include "pico/stdlib.h"
 #include "pico/binary_info.h"
 
-#include "src/protocols/ws2812.hpp"
+#include "protocols/ws2812.hpp"
 
-using namespace std;
 
-struct RGBColor {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-};
+#include "lighting/LightingProgram.h"
+#include "lighting/programs/FakeLightingProgram.h"
+
+#include "lighting/Colour.h"
+
+
 
 void angleToColor(float angle, uint* out_r, uint* out_g, uint* out_b,float brightness = 0.2f) {
     // Normalize angle to be within [0, 360)
@@ -84,17 +84,18 @@ int main() {
 
     const uint NUMBER_OF_LEDS = 300; // Adjust this to your actual number of LEDs
 
+
     // Define the color and velocity variables
     uint r = 0;
     uint g = 0;
     uint b = 0;
-    double brightness = 0.8f;
+    double brightness = 0.4f;
 
     float angle = 0.0f;
     float velocity = 30.0f;
     float stepSize = 360.0f / 300.0f; 
 
-    RGBColor color;
+    Colour color(20, 10, 0);
 
     r = 50;
     g = 50;
@@ -106,8 +107,11 @@ int main() {
         for (uint i = 0; i < NUMBER_OF_LEDS; ++i) {
             // Assuming put_pixel and urgb_u32 functions are defined elsewhere
             // and appropriately handle color and pixel operations
-            //angleToColor(angle + ((float)i * stepSize), &r, &g, &b, brightness);
-            put_pixel(urgb_u32(r, g, b));
+            angleToColor(angle + ((float)i * stepSize), &r, &g, &b, brightness);
+            color.setR(r);
+            color.setG(g);
+            color.setB(b);
+            put_pixel((uint32_t)color);
         }
 
         uint64_t end_time = time_us_64();
