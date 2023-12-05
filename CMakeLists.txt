@@ -26,7 +26,14 @@ set(PICO_CXX_ENABLE_EXCEPTIONS 1)
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
-add_executable(couch_leds src/main.cpp )
+
+file(GLOB SOURCES
+    src/*.cpp
+    src/implementation/fake/*.cpp
+    src/implementation/WS2812/*.cpp
+)
+
+add_executable(couch_leds ${SOURCES})
 
 pico_set_program_name(couch_leds "couch_leds")
 pico_set_program_version(couch_leds "0.1")
@@ -44,7 +51,6 @@ target_link_libraries(couch_leds
 # Add the standard include files to the build
 target_include_directories(couch_leds PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}
-  ${CMAKE_CURRENT_LIST_DIR}/src
   ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts or any other standard includes, if required
 )
 

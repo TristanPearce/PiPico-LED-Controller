@@ -12,12 +12,13 @@
 
 #include "protocols/ws2812.h"
 
-
 #include "lighting/LightingProgram.h"
 #include "lighting/programs/FakeLightingProgram.h"
 
 #include "lighting/Colour.h"
 
+#include "implementation/WS2812/WS2812LedCollection.h"
+#include "implementation/fake/FakeLedCollection.h"
 
 
 void angleToColor(float angle, uint* out_r, uint* out_g, uint* out_b,float brightness = 0.2f) {
@@ -76,13 +77,7 @@ int main() {
     stdio_init_all();
     sleep_ms(100);
 
-    PIO pio = pio0;
-    int statemachine = 0;
-    uint offset = pio_add_program(pio, &ws2812_program);
-
-    ws2812_program_init(pio, statemachine, offset, WS2812_PIN, 800000, false);
-
-    const uint NUMBER_OF_LEDS = 300; // Adjust this to your actual number of LEDs
+    WS2812LedCollection leds(NUMBER_OF_LEDS, WS2812_PIN);
 
 
     // Define the color and velocity variables
@@ -111,8 +106,10 @@ int main() {
             color.setR(r);
             color.setG(g);
             color.setB(b);
-            put_pixel((uint32_t)color);
+            //put_pixel((uint32_t)color);
         }
+
+        leds.SetColour(color);
 
         uint64_t end_time = time_us_64();
         uint64_t elapsed_time_us = (end_time - start_time);
