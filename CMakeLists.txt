@@ -29,6 +29,7 @@ pico_sdk_init()
 
 file(GLOB SOURCES
     src/*.cpp
+    src/lighting/*.cpp
     src/implementation/fake/*.cpp
     src/implementation/WS2812/*.cpp
 )

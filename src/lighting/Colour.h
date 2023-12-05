@@ -102,6 +102,23 @@ public:
         return (static_cast<uint8_t>((colour_grbw >> WHITE_OFFSET) & 0xFF) / 255.0f);
     }
 
+    static const Colour RED;
+    static const Colour GREEN;
+    static const Colour BLUE;
+    static const Colour BLACK;
+    static const Colour WHITE;
+    static const Colour GRAY;
+    static const Colour SILVER;
+    static const Colour MAROON;
+    static const Colour YELLOW;
+    static const Colour OLIVE;
+    static const Colour NAVY;
+    static const Colour PURPLE;
+    static const Colour TEAL;
+    static const Colour FUCHSIA;
+    static const Colour AQUA;
+    static const Colour LIME;
+
 private:
     /// @brief Colour in Green - Red - Blue - White (8-bits per)
     uint32_t colour_grbw;
