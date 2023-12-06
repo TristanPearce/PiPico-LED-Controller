@@ -105,10 +105,10 @@ int main() {
             color.setR(r);
             color.setG(g);
             color.setB(b);
-            //put_pixel((uint32_t)color);
+            leds.SetColour(i, color);
         }
 
-        leds.SetColour(color);
+        leds.Show();
 
         uint64_t end_time = time_us_64();
         uint64_t elapsed_time_us = (end_time - start_time);

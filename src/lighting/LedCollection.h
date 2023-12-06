@@ -13,4 +13,6 @@ public:
     virtual uint8_t GetBrightness() = 0;
 
     virtual uint GetNumberOfLeds() = 0;
+
+    virtual void Show() = 0;
 };

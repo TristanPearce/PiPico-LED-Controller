@@ -23,6 +23,8 @@ public:
     void SetBrightness(int8_t brightness);
     uint8_t GetBrightness();
 
+    void Show();
+
 private:
     uint m_numberOfLeds;
     uint m_gpioPin;
@@ -34,6 +36,4 @@ private:
     int8_t m_brightness;
 
     Colour* m_colours;
-
-    void PushToHardware();
 };

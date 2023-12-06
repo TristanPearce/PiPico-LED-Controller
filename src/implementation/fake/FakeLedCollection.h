@@ -12,4 +12,6 @@ public:
 
     void SetBrightness(int8_t brightness);
     uint8_t GetBrightness();
+
+    void Show();
 };

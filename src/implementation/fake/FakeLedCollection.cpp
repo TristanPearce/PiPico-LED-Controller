@@ -29,6 +29,11 @@ uint8_t FakeLedCollection::GetBrightness()
     return 0;
 }
 
+void FakeLedCollection::Show()
+{
+    std::cout << "Fake Led Collection showed." << std::endl;
+}
+
 void FakeLedCollection::SetBrightness(int8_t brightness)
 {
     std::cout << "Fake Led Collection set brightness." << std::endl;

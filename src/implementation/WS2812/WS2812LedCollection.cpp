@@ -26,7 +26,6 @@ void WS2812LedCollection::SetColour(Colour colour)
     {
          m_colours[i] = colour;
     }
-    PushToHardware();
 }
 
 void WS2812LedCollection::SetColour(Colour colours[])
@@ -35,12 +34,11 @@ void WS2812LedCollection::SetColour(Colour colours[])
     {
         m_colours[i] = colours[i];
     }
-    PushToHardware();
 }
 
 void WS2812LedCollection::SetColour(uint index, Colour colour)
 {
-
+    m_colours[index] = colour;
 }
 
 uint WS2812LedCollection::GetNumberOfLeds()
@@ -53,17 +51,15 @@ uint8_t WS2812LedCollection::GetBrightness()
     return m_brightness;
 }
 
-void WS2812LedCollection::SetBrightness(int8_t brightness)
-{
-    m_brightness = brightness;
-}
-
-// PRIVATE //
-
-void WS2812LedCollection::PushToHardware()
+void WS2812LedCollection::Show()
 {
     for(int i = 0; i < this->m_numberOfLeds; i++)
     {
         put_pixel((uint32_t)(m_colours[i]));
     }
+}
+
+void WS2812LedCollection::SetBrightness(int8_t brightness)
+{
+    m_brightness = brightness;
 }
