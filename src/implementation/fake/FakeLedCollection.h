@@ -5,6 +5,11 @@ class FakeLedCollection : LedCollection
 
 public:
     void SetColour(Colour colour);
-    u_int64_t GetNumberOfLeds();
+    void SetColour(Colour colour[]);
+    void SetColour(uint index, Colour colour);
 
+    uint GetNumberOfLeds();
+
+    void SetBrightness(int8_t brightness);
+    uint8_t GetBrightness();
 };

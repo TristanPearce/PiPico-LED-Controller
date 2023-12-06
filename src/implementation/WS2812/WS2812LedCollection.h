@@ -11,15 +11,29 @@
 class WS2812LedCollection : LedCollection 
 {
 public:
-    WS2812LedCollection(uint64_t numberOfLeds, uint32_t gpioPin);
+    WS2812LedCollection(uint numberOfLeds, uint gpioPin);
+    ~WS2812LedCollection();
+
     void SetColour(Colour colour);
-    u_int64_t GetNumberOfLeds();
+    void SetColour(Colour colour[]);
+    void SetColour(uint index, Colour colour);
+    
+    uint GetNumberOfLeds();
+
+    void SetBrightness(int8_t brightness);
+    uint8_t GetBrightness();
 
 private:
-    uint64_t m_numberOfLeds;
-    uint32_t m_gpioPin;
+    uint m_numberOfLeds;
+    uint m_gpioPin;
 
     PIO m_pio;
     int m_statemachine;
     uint m_offset;
+
+    int8_t m_brightness;
+
+    Colour* m_colours;
+
+    void PushToHardware();
 };

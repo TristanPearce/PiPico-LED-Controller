@@ -18,7 +18,6 @@
 #include "lighting/Colour.h"
 
 #include "implementation/WS2812/WS2812LedCollection.h"
-#include "implementation/fake/FakeLedCollection.h"
 
 
 void angleToColor(float angle, uint* out_r, uint* out_g, uint* out_b,float brightness = 0.2f) {
