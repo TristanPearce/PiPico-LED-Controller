@@ -99,8 +99,6 @@ int main() {
         uint64_t start_time = time_us_64();
 
         for (uint i = 0; i < NUMBER_OF_LEDS; ++i) {
-            // Assuming put_pixel and urgb_u32 functions are defined elsewhere
-            // and appropriately handle color and pixel operations
             angleToColor(angle + ((float)i * stepSize), &r, &g, &b, brightness);
             color.setR(r);
             color.setG(g);

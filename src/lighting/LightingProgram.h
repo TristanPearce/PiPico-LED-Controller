@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Colour.h"
+
 struct LightingProgramOnCreateArgs
 {
 
@@ -20,6 +22,11 @@ struct LightingProgramOnRunEndArgs
 
 };
 
+struct LightingProgramGetColourForLedRunEndArgs
+{
+
+};
+
 class LightingProgram 
 {
 
@@ -29,4 +36,6 @@ public:
 
     virtual void OnRunStart(LightingProgramOnRunStartArgs args) = 0;
     virtual void OnRunEnd(LightingProgramOnRunEndArgs args) = 0;
+
+    virtual Colour GetColourForLed(uint index, LightingProgramGetColourForLedRunEndArgs args) = 0;
 };
