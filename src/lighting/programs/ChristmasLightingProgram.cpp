@@ -1,5 +1,13 @@
 #include "ChristmasLightingProgram.h"
 
+ChristmasLightingProgram::~ChristmasLightingProgram()
+{
+}
+
+ChristmasLightingProgram::ChristmasLightingProgram()
+{
+}
+
 void ChristmasLightingProgram::OnCreate(LightingProgramOnCreateArgs args)
 {
 }

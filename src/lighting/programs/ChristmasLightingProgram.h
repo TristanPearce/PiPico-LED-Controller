@@ -10,8 +10,12 @@
 
 
 
-class ChristmasLightingProgram {
+class ChristmasLightingProgram : public LightingProgram {
 public:
+
+    ChristmasLightingProgram();
+    ~ChristmasLightingProgram();
+
     void OnCreate(LightingProgramOnCreateArgs args);
     void OnDestroy(LightingProgramOnDestroyArgs args);
 

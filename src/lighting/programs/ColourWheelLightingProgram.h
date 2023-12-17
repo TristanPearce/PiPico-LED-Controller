@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-class ColourWheelLightingProgram : LightingProgram
+class ColourWheelLightingProgram : public LightingProgram
 {
 
 public:

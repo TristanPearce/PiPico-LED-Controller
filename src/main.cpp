@@ -14,6 +14,8 @@
 
 #include "lighting/LightingProgram.h"
 #include "lighting/programs/FakeLightingProgram.h"
+#include "lighting/programs/ColourWheelLightingProgram.h"
+#include "lighting/programs/ChristmasLightingProgram.h"
 
 #include "lighting/Colour.h"
 
@@ -77,49 +79,34 @@ int main() {
     sleep_ms(100);
 
     WS2812LedCollection leds(NUMBER_OF_LEDS, WS2812_PIN);
+    LightingProgram* program_ptr;
+    program_ptr = new ChristmasLightingProgram();
 
-
-    // Define the color and velocity variables
-    uint r = 0;
-    uint g = 0;
-    uint b = 0;
-    double brightness = 0.4f;
-
-    float angle = 0.0f;
-    float velocity = 30.0f;
-    float stepSize = 360.0f / 300.0f; 
-
-    Colour color(20, 10, 0);
-
-    r = 50;
-    g = 50;
-    b = 50;
+    Colour colour;
 
     while (true) {
         uint64_t start_time = time_us_64();
 
+        program_ptr->OnRunStart(LightingProgramOnRunStartArgs());
+
         for (uint i = 0; i < NUMBER_OF_LEDS; ++i) {
-            angleToColor(angle + ((float)i * stepSize), &r, &g, &b, brightness);
-            color.setR(r);
-            color.setG(g);
-            color.setB(b);
-            leds.SetColour(i, color);
+            colour = program_ptr->GetColourForLed(i, LightingProgramGetColourForLedRunEndArgs());
+            leds.SetColour(i, colour);
         }
 
         leds.Show();
 
+        program_ptr->OnRunEnd(LightingProgramOnRunEndArgs());
+
         uint64_t end_time = time_us_64();
         uint64_t elapsed_time_us = (end_time - start_time);
-
-        angle += velocity * (1.0f / elapsed_time_us * 100);
-
-        if(angle > 360)
-            angle -= 360;
 
         sleep_us(1000);
 
         std::cout << "Loop duration: " << elapsed_time_us << " us." << std::endl;
     }
+
+    delete program_ptr;
 
     return 0;
 }
