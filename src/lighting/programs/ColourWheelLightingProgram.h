@@ -6,13 +6,13 @@ class ColourWheelLightingProgram : public LightingProgram
 {
 
 public:
-    void OnCreate(LightingProgramOnCreateArgs args);
-    void OnDestroy(LightingProgramOnDestroyArgs args);
+    void OnEnable(LightingProgram::OnEnableArgs args);
+    void OnDisable(LightingProgram::OnDisableArgs args);
 
-    void OnRunStart(LightingProgramOnRunStartArgs args);
-    void OnRunEnd(LightingProgramOnRunEndArgs args);
+    void OnUpdateStart(LightingProgram::OnUpdateStartArgs args);
+    void OnUpdateEnd(LightingProgram::OnUpdateEndArgs args);
 
-    Colour GetColourForLed(uint index, LightingProgramGetColourForLedRunEndArgs args);
+    Colour GetColourForPixel(uint index, LightingProgram::GetColourForPixelArgs args);
 
 private:
     float m_stepSize = 360.0f / 300.0f; 

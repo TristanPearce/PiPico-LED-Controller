@@ -8,7 +8,7 @@
 
 #include "../../lighting/Colour.h"
 
-class WS2812LedCollection : LedCollection 
+class WS2812LedCollection : public LedCollection 
 {
 public:
     WS2812LedCollection(uint numberOfLeds, uint gpioPin);

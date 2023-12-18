@@ -1,26 +1,26 @@
 #include "ColourWheelLightingProgram.h"
 
-void ColourWheelLightingProgram::OnCreate(LightingProgramOnCreateArgs args)
+void ColourWheelLightingProgram::OnEnable(LightingProgram::OnEnableArgs args)
 {
 
 }
 
-void ColourWheelLightingProgram::OnDestroy(LightingProgramOnDestroyArgs args)
+void ColourWheelLightingProgram::OnDisable(LightingProgram::OnDisableArgs args)
 {
 
 }
 
-void ColourWheelLightingProgram::OnRunStart(LightingProgramOnRunStartArgs args)
+void ColourWheelLightingProgram::OnUpdateStart(LightingProgram::OnUpdateStartArgs args)
 {
 
 }
 
-void ColourWheelLightingProgram::OnRunEnd(LightingProgramOnRunEndArgs args)
+void ColourWheelLightingProgram::OnUpdateEnd(LightingProgram::OnUpdateEndArgs args)
 {
     m_position += m_velocity;
 }
 
-Colour ColourWheelLightingProgram::GetColourForLed(uint index, LightingProgramGetColourForLedRunEndArgs args)
+Colour ColourWheelLightingProgram::GetColourForPixel(uint index, LightingProgram::GetColourForPixelArgs args)
 {
     return this->angleToColor(index + ((float)index * m_stepSize) + m_position);
 }

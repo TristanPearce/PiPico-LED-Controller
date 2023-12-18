@@ -8,24 +8,24 @@ ChristmasLightingProgram::ChristmasLightingProgram()
 {
 }
 
-void ChristmasLightingProgram::OnCreate(LightingProgramOnCreateArgs args)
+void ChristmasLightingProgram::OnEnable(LightingProgram::OnEnableArgs args)
 {
 }
 
-void ChristmasLightingProgram::OnDestroy(LightingProgramOnDestroyArgs args)
+void ChristmasLightingProgram::OnDisable(LightingProgram::OnDisableArgs args)
 {
 }
 
-void ChristmasLightingProgram::OnRunStart(LightingProgramOnRunStartArgs args)
+void ChristmasLightingProgram::OnUpdateStart(LightingProgram::OnUpdateStartArgs args)
 {
 }
 
-void ChristmasLightingProgram::OnRunEnd(LightingProgramOnRunEndArgs args)
+void ChristmasLightingProgram::OnUpdateEnd(LightingProgram::OnUpdateEndArgs args)
 {
     sleep_ms(500);
 }
 
-Colour ChristmasLightingProgram::GetColourForLed(uint index, LightingProgramGetColourForLedRunEndArgs args)
+Colour ChristmasLightingProgram::GetColourForPixel(uint index, LightingProgram::GetColourForPixelArgs args)
 {
     int isTurnedOn = rand() % 4;
     int colourIndex = rand() % (sizeof(m_christmasColours) / sizeof(m_christmasColours[0]));
@@ -33,5 +33,5 @@ Colour ChristmasLightingProgram::GetColourForLed(uint index, LightingProgramGetC
     if(isTurnedOn > 2)
         return m_christmasColours[colourIndex];
     else
-        return Colour::BLACK; 
+        return Colour::BLACK;
 }

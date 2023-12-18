@@ -2,40 +2,23 @@
 
 #include "Colour.h"
 
-struct LightingProgramOnCreateArgs
-{
-
-};
-
-struct LightingProgramOnDestroyArgs
-{
-
-};
-
-struct LightingProgramOnRunStartArgs
-{
-
-};
-
-struct LightingProgramOnRunEndArgs
-{
-
-};
-
-struct LightingProgramGetColourForLedRunEndArgs
-{
-
-};
-
 class LightingProgram 
 {
 
 public:
-    virtual void OnCreate(LightingProgramOnCreateArgs args) = 0;
-    virtual void OnDestroy(LightingProgramOnDestroyArgs args) = 0;
 
-    virtual void OnRunStart(LightingProgramOnRunStartArgs args) = 0;
-    virtual void OnRunEnd(LightingProgramOnRunEndArgs args) = 0;
+    struct OnEnableArgs {};
+    virtual void OnEnable(LightingProgram::OnEnableArgs args) = 0;
 
-    virtual Colour GetColourForLed(uint index, LightingProgramGetColourForLedRunEndArgs args) = 0;
+    struct OnDisableArgs {};
+    virtual void OnDisable(LightingProgram::OnDisableArgs args) = 0;
+
+    struct OnUpdateStartArgs {};
+    virtual void OnUpdateStart(LightingProgram::OnUpdateStartArgs args) = 0;
+
+    struct OnUpdateEndArgs {};
+    virtual void OnUpdateEnd(LightingProgram::OnUpdateEndArgs args) = 0;
+
+    struct GetColourForPixelArgs {};
+    virtual Colour GetColourForPixel(uint pixel_index, LightingProgram::GetColourForPixelArgs args) = 0;
 };
