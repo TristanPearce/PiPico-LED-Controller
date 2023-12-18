@@ -33,6 +33,7 @@ file(GLOB SOURCES
     src/lighting/controllers/*cpp
     src/lighting/programs/*.cpp
     src/implementation/WS2812/*.cpp
+    src/ir_remote/*.cpp
 )
 
 add_executable(couch_leds ${SOURCES})
