@@ -10,15 +10,19 @@
 #include "pico/stdlib.h"
 #include "pico/binary_info.h"
 
-#include "src/protocols/ws2812.hpp"
+#include "protocols/ws2812.h"
 
-using namespace std;
+#include "lighting/LightingController.h"
+#include "lighting/controllers/SingleProgramLightingController.h"
 
-struct RGBColor {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-};
+#include "lighting/LightingProgram.h"
+#include "lighting/programs/ColourWheelLightingProgram.h"
+#include "lighting/programs/ChristmasLightingProgram.h"
+
+#include "lighting/Colour.h"
+
+#include "implementation/WS2812/WS2812LedCollection.h"
+
 
 void angleToColor(float angle, uint* out_r, uint* out_g, uint* out_b,float brightness = 0.2f) {
     // Normalize angle to be within [0, 360)
@@ -76,52 +80,20 @@ int main() {
     stdio_init_all();
     sleep_ms(100);
 
-    PIO pio = pio0;
-    int statemachine = 0;
-    uint offset = pio_add_program(pio, &ws2812_program);
+    LedCollection* leds_ptr;
+    leds_ptr = new WS2812LedCollection(NUMBER_OF_LEDS, WS2812_PIN);
 
-    ws2812_program_init(pio, statemachine, offset, WS2812_PIN, 800000, false);
+    LightingProgram* program_ptr;
+    program_ptr = new ChristmasLightingProgram();
 
-    const uint NUMBER_OF_LEDS = 300; // Adjust this to your actual number of LEDs
+    LightingController* controller_ptr;
+    controller_ptr = new SingleProgramLightingController(program_ptr, leds_ptr, false);
 
-    // Define the color and velocity variables
-    uint r = 0;
-    uint g = 0;
-    uint b = 0;
-    double brightness = 0.8f;
-
-    float angle = 0.0f;
-    float velocity = 30.0f;
-    float stepSize = 360.0f / 300.0f; 
-
-    RGBColor color;
-
-    r = 50;
-    g = 50;
-    b = 50;
-
-    while (true) {
-        uint64_t start_time = time_us_64();
-
-        for (uint i = 0; i < NUMBER_OF_LEDS; ++i) {
-            // Assuming put_pixel and urgb_u32 functions are defined elsewhere
-            // and appropriately handle color and pixel operations
-            //angleToColor(angle + ((float)i * stepSize), &r, &g, &b, brightness);
-            put_pixel(urgb_u32(r, g, b));
-        }
-
-        uint64_t end_time = time_us_64();
-        uint64_t elapsed_time_us = (end_time - start_time);
-
-        angle += velocity * (1.0f / elapsed_time_us * 100);
-
-        if(angle > 360)
-            angle -= 360;
-
-        sleep_us(1000);
-
-        std::cout << "Loop duration: " << elapsed_time_us << " us." << std::endl;
-    }
+    controller_ptr->Enable();
+    
+    delete controller_ptr;
+    delete program_ptr;
+    delete leds_ptr;
 
     return 0;
 }
