@@ -30,5 +30,5 @@ private:
     
     float m_velocity = 20;
     float m_position = 0;
-    float m_fadeMultiplier = 0.02f;
+    float m_fadeMultiplier = 1.0f / 20.0f;
 };

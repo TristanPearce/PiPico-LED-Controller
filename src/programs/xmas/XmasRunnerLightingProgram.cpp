@@ -1,6 +1,7 @@
 #include "XmasRunnerLightingProgram.h"
 
 #include <math.h>
+#include <random>
 
 XmasRunnerLightingProgram::~XmasRunnerLightingProgram()
 {
@@ -28,11 +29,13 @@ void XmasRunnerLightingProgram::OnUpdateStart(LightingProgram::OnUpdateStartArgs
     {
         m_velocity = abs(m_velocity);
         // change colour
-        m_currentColourIndex = (m_currentColourIndex + 1) % (sizeof(m_christmasColours) / sizeof(m_christmasColours[0]));
+        m_currentColourIndex = (rand()) % (sizeof(m_christmasColours) / sizeof(m_christmasColours[0]));
     } 
     else if (m_position >= args.NumberOfPixels + 1 / m_fadeMultiplier)
     {
         m_velocity = -abs(m_velocity);
+        // change colour
+        m_currentColourIndex = (rand()) % (sizeof(m_christmasColours) / sizeof(m_christmasColours[0]));
     }
 }
 
