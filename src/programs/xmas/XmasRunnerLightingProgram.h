@@ -25,10 +25,10 @@ public:
     Colour GetColourForPixel(uint index, LightingProgram::GetColourForPixelArgs args);
 
 private:
-    Colour m_christmasColours[2] = {Colour::RED, Colour::GREEN};
+    Colour m_christmasColours[10] = { Colour::RED, Colour::GREEN, Colour::WHITE, Colour::YELLOW, Colour::BLUE, Colour::PURPLE, Colour::OLIVE, Colour::MAROON, Colour::NAVY, Colour::LIME };
     int m_currentColourIndex = 0;
     
-    float m_velocity = 10;
+    float m_velocity = 20;
     float m_position = 0;
-    float m_fadeMultiplier = 0.1f;
+    float m_fadeMultiplier = 0.02f;
 };
