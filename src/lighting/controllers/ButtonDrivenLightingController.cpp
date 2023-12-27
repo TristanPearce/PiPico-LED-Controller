@@ -3,7 +3,7 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 
-#define BUTTON_PIN 15
+#define BUTTON_PIN 11
 
 ButtonDrivenLightingController::ButtonDrivenLightingController(std::vector<LightingProgram*> programs, LedCollection *leds)
 {
