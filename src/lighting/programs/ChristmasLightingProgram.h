@@ -25,5 +25,5 @@ public:
     Colour GetColourForPixel(uint index, LightingProgram::GetColourForPixelArgs args);
 
 private:
-    Colour m_christmasColours[2] = {Colour::RED, Colour::GREEN};
+    Colour m_christmasColours[5] = {Colour::RED, Colour::GREEN, Colour::YELLOW, Colour::BLUE, Colour::WHITE };
 };

@@ -13,7 +13,11 @@ public:
     struct OnDisableArgs {};
     virtual void OnDisable(LightingProgram::OnDisableArgs args) = 0;
 
-    struct OnUpdateStartArgs {};
+    struct OnUpdateStartArgs {
+    public: 
+        float DurationOfLastUpdateInSeconds;
+        uint NumberOfPixels;
+    };
     virtual void OnUpdateStart(LightingProgram::OnUpdateStartArgs args) = 0;
 
     struct OnUpdateEndArgs {};

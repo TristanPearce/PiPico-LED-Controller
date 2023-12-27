@@ -21,11 +21,17 @@ void SingleProgramLightingController::Enable()
 
     m_program->OnEnable(LightingProgram::OnEnableArgs());
 
+    uint64_t start_time, end_time;
+    double previous_run_time_in_seconds;
+
     while(m_active)
     {
         uint64_t start_time = time_us_64();
 
-        m_program->OnUpdateStart(LightingProgram::OnUpdateStartArgs());
+        LightingProgram::OnUpdateStartArgs onStartArgs = LightingProgram::OnUpdateStartArgs();
+        onStartArgs.DurationOfLastUpdateInSeconds = previous_run_time_in_seconds;
+        onStartArgs.NumberOfPixels = m_leds->GetNumberOfLeds();
+        m_program->OnUpdateStart(onStartArgs);
 
         for (uint i = 0; i < m_leds->GetNumberOfLeds(); ++i) {
             cached_colour = m_program->GetColourForPixel(i, LightingProgram::GetColourForPixelArgs());
@@ -35,12 +41,10 @@ void SingleProgramLightingController::Enable()
 
         m_program->OnUpdateEnd(LightingProgram::OnUpdateEndArgs());
 
-        uint64_t end_time = time_us_64();
-        uint64_t elapsed_time_us = (end_time - start_time);
+        end_time = time_us_64();
+        previous_run_time_in_seconds = (double)(end_time - start_time) / 1000000; 
 
         sleep_us(1000);
-
-        std::cout << "Loop duration: " << elapsed_time_us << " us." << std::endl;
     }
 
     m_program->OnDisable(LightingProgram::OnDisableArgs());

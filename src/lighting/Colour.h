@@ -102,6 +102,26 @@ public:
         return (static_cast<uint8_t>((colour_grbw >> WHITE_OFFSET) & 0xFF) / 255.0f);
     }
 
+    // Overload * operator for uint8_t scalar
+    Colour operator*(uint8_t scalar) const {
+        Colour result = *this;
+        result.setR(result.getR() * scalar / 255);
+        result.setG(result.getG() * scalar / 255);
+        result.setB(result.getB() * scalar / 255);
+        result.setW(result.getW() * scalar / 255);
+        return result;
+    }
+
+    // Overload * operator for float scalar
+    Colour operator*(float scalar) const {
+        Colour result = *this;
+        result.setRFloat(result.getRFloat() * scalar);
+        result.setGFloat(result.getGFloat() * scalar);
+        result.setBFloat(result.getBFloat() * scalar);
+        result.setWFloat(result.getWFloat() * scalar);
+        return result;
+    }
+
     static const Colour RED;
     static const Colour GREEN;
     static const Colour BLUE;
