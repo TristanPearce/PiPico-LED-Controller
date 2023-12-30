@@ -11,95 +11,98 @@
 struct Colour {
 public:
     // Constructors
-    Colour() : colour_grbw(0) {}
+    Colour() : colour_wgrb(0) {}
     Colour(uint8_t r, uint8_t g, uint8_t b, uint8_t w = 0) {
         setRGBW(r, g, b, w);
     }
 
+    #pragma region BYTE METHODS
+
     // Setters
     void setRGBW(uint8_t r, uint8_t g, uint8_t b, uint8_t w = 0) {
-        colour_grbw = (static_cast<uint32_t>(g) << GREEN_OFFSET) | (static_cast<uint32_t>(r) << RED_OFFSET) | static_cast<uint32_t>(b) << BLUE_OFFSET;
+        colour_wgrb = (static_cast<uint32_t>(g) << GREEN_OFFSET) | (static_cast<uint32_t>(r) << RED_OFFSET) | static_cast<uint32_t>(b) << BLUE_OFFSET | static_cast<uint32_t>(w) << WHITE_OFFSET;
     }
 
     void setR(uint8_t r) {
-        colour_grbw = (colour_grbw & 0xFFFF00FF) | (static_cast<uint32_t>(r) << RED_OFFSET);
+        colour_wgrb = (colour_wgrb & 0xFFFF00FF) | (static_cast<uint32_t>(r) << RED_OFFSET);
     }
 
     void setG(uint8_t g) {
-        colour_grbw = (colour_grbw & 0xFF00FFFF) | (static_cast<uint32_t>(g) << GREEN_OFFSET);
+        colour_wgrb = (colour_wgrb & 0xFF00FFFF) | (static_cast<uint32_t>(g) << GREEN_OFFSET);
     }
 
     void setB(uint8_t b) {
-        colour_grbw = (colour_grbw & 0xFFFFFF00) | (static_cast<uint32_t>(b) << BLUE_OFFSET);
+        colour_wgrb = (colour_wgrb & 0xFFFFFF00) | (static_cast<uint32_t>(b) << BLUE_OFFSET);
     }
 
     void setW(uint8_t w) {
-        colour_grbw = (colour_grbw & 0x00FFFFFF) | (static_cast<uint32_t>(w) << WHITE_OFFSET);
+        colour_wgrb = (colour_wgrb & 0x00FFFFFF) | (static_cast<uint32_t>(w) << WHITE_OFFSET);
     }
 
     // Getters
     uint8_t getR() const {
-        return static_cast<uint8_t>((colour_grbw >> RED_OFFSET) & 0xFF);
+        return static_cast<uint8_t>((colour_wgrb >> RED_OFFSET) & 0xFF);
     }
 
     uint8_t getG() const {
-        return static_cast<uint8_t>((colour_grbw >> GREEN_OFFSET) & 0xFF);
+        return static_cast<uint8_t>((colour_wgrb >> GREEN_OFFSET) & 0xFF);
     }
 
     uint8_t getB() const {
-        return static_cast<uint8_t>(colour_grbw >> BLUE_OFFSET& 0xFF);
+        return static_cast<uint8_t>((colour_wgrb >> BLUE_OFFSET) & 0xFF);
     }
 
     uint8_t getW() const {
-        return static_cast<uint8_t>((colour_grbw >> WHITE_OFFSET) & 0xFF);
+        return static_cast<uint8_t>((colour_wgrb >> WHITE_OFFSET) & 0xFF);
     }
 
-    // Display the RGBW values
-    void display() const {
-        std::cout << "R: " << static_cast<int>(getR()) << ", "
-                  << "G: " << static_cast<int>(getG()) << ", "
-                  << "B: " << static_cast<int>(getB()) << ", "
-                  << "W: " << static_cast<int>(getW()) << std::endl;
-    }
+    #pragma endregion
 
-    explicit operator uint32_t() const {
-        return colour_grbw;
-    }
 
-    // FLOATING POINT HELPERS
 
+    #pragma region FLOATING METHODS
 
     void setRFloat(float r) {
-        colour_grbw = (colour_grbw & 0xFFFF00FF) | (static_cast<uint32_t>(r) << RED_OFFSET);
+        colour_wgrb = (colour_wgrb & 0xFFFF00FF) | (static_cast<uint32_t>(r) << RED_OFFSET);
     }
 
     void setGFloat(float g) {
-        colour_grbw = (colour_grbw & 0xFF00FFFF) | (static_cast<uint32_t>(g) << GREEN_OFFSET);
+        colour_wgrb = (colour_wgrb & 0xFF00FFFF) | (static_cast<uint32_t>(g) << GREEN_OFFSET);
     }
 
     void setBFloat(float b) {
-        colour_grbw = (colour_grbw & 0xFFFFFF00) | (static_cast<uint32_t>(b) << BLUE_OFFSET);
+        colour_wgrb = (colour_wgrb & 0xFFFFFF00) | (static_cast<uint32_t>(b) << BLUE_OFFSET);
     }
 
     void setWFloat(float w) {
-        colour_grbw = (colour_grbw & 0x00FFFFFF) | (static_cast<uint32_t>(w) << WHITE_OFFSET);
+        colour_wgrb = (colour_wgrb & 0x00FFFFFF) | (static_cast<uint32_t>(w) << WHITE_OFFSET);
     }
 
     // Getters
     float getRFloat() const {
-        return (static_cast<uint8_t>((colour_grbw >> RED_OFFSET) & 0xFF) / 255.0f);
+        return (static_cast<uint8_t>((colour_wgrb >> RED_OFFSET) & 0xFF) / 255.0f);
     }
 
     float getGFloat() const {
-        return (static_cast<uint8_t>((colour_grbw >> GREEN_OFFSET) & 0xFF) / 255.0f);
+        return (static_cast<uint8_t>((colour_wgrb >> GREEN_OFFSET) & 0xFF) / 255.0f);
     }
 
     float getBFloat() const {
-        return (static_cast<uint8_t>(colour_grbw >> BLUE_OFFSET& 0xFF) / 255.0f);
+        return (static_cast<uint8_t>(colour_wgrb >> BLUE_OFFSET& 0xFF) / 255.0f);
     }
 
     float getWFloat() const {
-        return (static_cast<uint8_t>((colour_grbw >> WHITE_OFFSET) & 0xFF) / 255.0f);
+        return (static_cast<uint8_t>((colour_wgrb >> WHITE_OFFSET) & 0xFF) / 255.0f);
+    }
+
+    #pragma endregion
+
+
+
+    #pragma region OPERATORS
+
+    explicit operator uint32_t() const {
+        return colour_wgrb;
     }
 
     // Overload * operator for uint8_t scalar
@@ -132,6 +135,12 @@ public:
         return result;
     }
 
+    #pragma endregion
+
+
+
+    #pragma region PRESET COLOURS
+
     static const Colour RED;
     static const Colour GREEN;
     static const Colour BLUE;
@@ -149,7 +158,9 @@ public:
     static const Colour AQUA;
     static const Colour LIME;
 
+    #pragma endregion
+
 private:
     /// @brief Colour in Green - Red - Blue - White (8-bits per)
-    uint32_t colour_grbw;
+    uint32_t colour_wgrb;
 };
