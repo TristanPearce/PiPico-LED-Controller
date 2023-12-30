@@ -112,13 +112,23 @@ public:
         return result;
     }
 
-    // Overload * operator for float scalar
+    // Scale a colour by a value between 0 and 1
     Colour operator*(float scalar) const {
-        Colour result = *this;
-        result.setRFloat(result.getRFloat() * scalar);
-        result.setGFloat(result.getGFloat() * scalar);
-        result.setBFloat(result.getBFloat() * scalar);
-        result.setWFloat(result.getWFloat() * scalar);
+        Colour result = Colour(
+            (this->getRFloat() * scalar),
+            (this->getGFloat() * scalar),
+            (this->getBFloat() * scalar),
+            (this->getWFloat() * scalar));
+        return result;
+    }
+
+    // Average 2 colours
+    Colour operator+(Colour other) const {
+        Colour result = Colour(
+            (this->getR() + other.getR() / 2),
+            (this->getG() + other.getG() / 2),
+            (this->getB() + other.getB() / 2),
+            (this->getW() + other.getW() / 2));
         return result;
     }
 
