@@ -53,10 +53,7 @@ uint8_t WS2812LedCollection::GetBrightness()
 
 void WS2812LedCollection::Show()
 {
-    for(int i = 0; i < this->m_numberOfLeds; i++)
-    {
-        put_pixel((uint32_t)(m_colours[i]));
-    }
+    ws2812_transfer(m_pio, m_statemachine, m_colours, m_numberOfLeds * sizeof(Colour) * 4);
 }
 
 void WS2812LedCollection::SetBrightness(int8_t brightness)
