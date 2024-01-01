@@ -11,7 +11,7 @@ WS2812LedCollection::WS2812LedCollection(uint numberOfLeds, uint gpioPin)
 
     m_colours = new Colour[m_numberOfLeds];
 
-    ws2812_program_init(m_pio, m_statemachine, m_offset, m_gpioPin, 800000, false);
+    ws2812_program_init(m_pio, m_statemachine, m_offset, m_gpioPin, WS2812Frequency::KHZ_800, false);
 }
 
 WS2812LedCollection::~WS2812LedCollection()

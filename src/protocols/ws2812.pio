@@ -21,21 +21,25 @@ do_zero:
 % c-sdk {
 #include "hardware/clocks.h"
 
-static inline void ws2812_program_init(PIO pio, uint sm, uint offset, uint pin, float freq, bool rgbw) {
+enum WS2812Frequency 
+{
+    KHZ_800 = 800000,
+    KHZ_400 = 400000
+};
 
-    pio_gpio_init(pio, pin);
-    pio_sm_set_consecutive_pindirs(pio, sm, pin, 1, true);
-
-    pio_sm_config c = ws2812_program_get_default_config(offset);
-    sm_config_set_sideset_pins(&c, pin);
-    sm_config_set_out_shift(&c, false, true, rgbw ? 32 : 24);
-    sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_TX);
-
+static inline void ws2812_program_init(PIO pio, uint sm, uint offset, uint pin, WS2812Frequency freq, bool rgbw) 
+{
+    pio_gpio_init(pio, pin); /* initialize pin for usage with the PIO */
+    pio_sm_set_consecutive_pindirs(pio, sm, pin, 1, true); /* set pin direction. 1: number of pins. true: as output pin */
+    pio_sm_config c = ws2812_program_get_default_config(offset); /* get default configuration */
+    sm_config_set_sideset_pins(&c, pin); /* use pin as side set */
+    sm_config_set_out_shift(&c, false, true, rgbw ? 32 : 24); /* false: shift left. true: auto-pull. Number of bits based on rgb or rgbw */
+    sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_TX); /* combine both FIFOs as TX_FIFO, so we have a bigger FIFO */
     /* calculate state machine clocking based on protocol needs */
     float div = clock_get_hz(clk_sys) / (freq * ws2812_NOF_CYCLES_FOR_1_BIT);
     sm_config_set_clkdiv(&c, div);
-
+    /* initialize PIO and start it */
     pio_sm_init(pio, sm, offset, &c);
-    pio_sm_set_enabled(pio, sm, true);
+    pio_sm_set_enabled(pio, sm, true); /* true: enable pio */
 }
 %}
