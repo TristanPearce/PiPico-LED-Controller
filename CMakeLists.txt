@@ -34,6 +34,8 @@ file(GLOB SOURCES
     src/lighting/programs/*.cpp
     src/implementation/WS2812/*.cpp
 
+    src/protocols/*.cpp
+
     src/programs/xmas/*.cpp
 )
 
