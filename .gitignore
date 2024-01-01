@@ -1,5 +1,5 @@
 Makefile
 .vscode/
 build/
-*/generated/
+**/generated/*
 CMakeCache.txt
